@@ -51,7 +51,7 @@ module "IGW" {
   source = "./VPC/IGW"
 
   vpc_id   = module.vpc.vpc_id
-  IGW_name = "My Internet Gateway"
+  IGW_name = "IGW-Production"
 }
 
 /*

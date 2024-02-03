@@ -4,7 +4,7 @@ variable "vpc_id" {
 }
 
 variable "IGW_name" {
-  description = "Specify the VPC ID"
+  description = "Specify the name for the IGW"
   type        = string
   default     = "IGW"
 }
