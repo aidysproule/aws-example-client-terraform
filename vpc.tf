@@ -75,7 +75,7 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name = "Public Route Table"
+    Name = "Public Subnets Route Table"
   }
 }
 
@@ -84,7 +84,7 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
   subnet_id      = each.value
   route_table_id = aws_route_table.public_route_table.id
 }
-# ********** Publci Subnets Default Route **********
+# ********** Public Subnets Default Route **********
 
 
 
