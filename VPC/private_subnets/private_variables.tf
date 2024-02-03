@@ -3,7 +3,7 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "VPC_subnet" {
+variable "private_subnet_block" {
   description = "Specify the VPC subnet"
   type        = string
 }
@@ -20,7 +20,7 @@ variable "private_subnets_subnet_size" {
   default     = 8
 }
 
-variable "num_of_private_AZs_to_use" {
+variable "num_of_AZs_to_use" {
   description = "Specify the number of AZs for the private subnets"
   type        = number
   default     = 4

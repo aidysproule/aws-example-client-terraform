@@ -33,20 +33,20 @@ module "dmz_subnets" {
 
 }
 
-/*
+
 module "private_subnets" {
   source = "./VPC/private_subnets"
 
   vpc_id = module.vpc.vpc_id
-  #VPC_subnet                 = module.vpc.VPC_subnet
-  VPC_subnet                  = "10.10.16.0/20"
+  private_subnet_block                  = "10.10.64.0/19"
   num_of_private_subnets      = 3
-  private_subnets_subnet_size = 4 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
-  num_of_private_AZs_to_use   = 4
+  private_subnets_subnet_size = 3 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
+  num_of_AZs_to_use   = 3
   private_subnet_name         = "Private-Subnet"
 
 }
 
+/*
 module "IGW" {
   source = "./VPC/IGW"
 
