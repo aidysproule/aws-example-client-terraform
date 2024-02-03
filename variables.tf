@@ -9,7 +9,7 @@ variable "Default_Tags" {
   type        = map(string)
   default = {
     Built_By = "Terraform",
-    enviornment = "Production",
+    environment = "Production",
   }
 }
 
