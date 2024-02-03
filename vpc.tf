@@ -90,6 +90,9 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
 # ********** NAT Gateway **********
 resource "aws_eip" "nat_gateway_eip" {
   domain = "vpc"
+  tags = {
+    Name = "NAT Gateway EIP"
+  }
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
