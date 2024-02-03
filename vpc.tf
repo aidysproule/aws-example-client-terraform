@@ -60,9 +60,28 @@ module "IGW" {
   source = "./VPC/IGW"
 
   vpc_id   = module.vpc.vpc_id
-  IGW_name = "IGW-Production"
+  IGW_name = "Production-IGW"
 }
 # ********** Internet Gateway **********
+
+
+# ********** NAT EIP & Gateway **********
+resource "aws_eip" "nat_gateway_eip" {
+  domain = "vpc"
+  tags = {
+    Name = "NAT Gateway EIP"
+  }
+}
+
+resource "aws_nat_gateway" "nat_gateway" {
+  allocation_id = aws_eip.nat_gateway_eip.id
+  subnet_id     = module.public_subnets.public_subnet_ids[0]
+
+  tags = {
+    Name = "Production-NAT-Gateway"
+  }
+}
+# ********** NAT EIP & Gateway **********
 
 
 # ********** Public Subnets Default Route **********
@@ -85,25 +104,6 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
   route_table_id = aws_route_table.public_route_table.id
 }
 # ********** Public Subnets Default Route **********
-
-
-# ********** NAT Gateway **********
-resource "aws_eip" "nat_gateway_eip" {
-  domain = "vpc"
-  tags = {
-    Name = "NAT Gateway EIP"
-  }
-}
-
-resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_eip.nat_gateway_eip.id
-  subnet_id     = module.public_subnets.public_subnet_ids[0]
-
-  tags = {
-    Name = "Production-NAT-Gateway"
-  }
-}
-# ********** NAT Gateway **********
 
 
 # ********** DMZ Subnets Default Route **********
