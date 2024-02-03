@@ -98,6 +98,10 @@ resource "aws_eip" "nat_gateway_eip" {
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.nat_gateway_eip.id
   subnet_id     = module.public_subnets.public_subnet_ids[0]
+
+  tags = {
+    Name = "Production-NAT-Gateway"
+  }
 }
 # ********** NAT Gateway **********
 
