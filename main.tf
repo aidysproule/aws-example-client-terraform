@@ -1,3 +1,6 @@
+variable region{}
+variable Default_Tags {}
+
 terraform {
   required_providers {
     aws = {
