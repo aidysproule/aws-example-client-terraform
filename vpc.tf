@@ -69,7 +69,7 @@ module "IGW" {
 resource "aws_eip" "nat_gateway_eip" {
   domain = "vpc"
   tags = {
-    Name = "NAT Gateway EIP"
+    Name = "Production-NAT-Gateway-EIP"
   }
 }
 
