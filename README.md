@@ -10,7 +10,7 @@ The vpc.tf contains the elements to build the VPC infrastructure including the:
 
 - Public subnets
 - DMZ subnets
-- Pivate subnets
+- Private subnets
 - Internet Gateway
 - NAT Gateway
-- Default routes for the subnets
+- Default routes for the public, DMZ and private subnets
