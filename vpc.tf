@@ -7,21 +7,22 @@ module "vpc" {
   enable_dns_hostnames = true
 }
 
-/*
+
 
 module "public_subnets" {
   source = "./VPC/public_subnets"
 
   vpc_id = module.vpc.vpc_id
   #VPC_subnet                 = module.vpc.VPC_subnet
-  VPC_subnet                 = "10.10.0.0/20"
+  VPC_subnet                 = "10.10.0.0/19"
   num_of_public_subnets      = 3
-  public_subnets_subnet_size = 4 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
-  num_of_public_AZs_to_use   = 4
+  public_subnets_subnet_size = 6 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
+  num_of_public_AZs_to_use   = 3
   public_subnet_name         = "Public-Subnet"
   map_public_ip_on_launch    = true
 }
 
+/*
 module "private_subnets" {
   source = "./VPC/private_subnets"
 
