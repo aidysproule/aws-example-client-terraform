@@ -16,7 +16,7 @@ module "public_subnets" {
   #VPC_subnet                 = module.vpc.VPC_subnet
   VPC_subnet                 = "10.10.0.0/19"
   num_of_public_subnets      = 3
-  public_subnets_subnet_size = 6 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
+  public_subnets_subnet_size = 3 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
   num_of_public_AZs_to_use   = 3
   public_subnet_name         = "Public-Subnet"
   map_public_ip_on_launch    = true
