@@ -8,7 +8,8 @@ variable "Default_Tags" {
   description = "Default tags applied to all resources"
   type        = map(string)
   default = {
-    Built_By = "Terraform"
+    Built_By = "Terraform",
+    enviornment = "Production",
   }
 }
 

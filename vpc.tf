@@ -2,7 +2,7 @@ module "vpc" {
   source = "./VPC/vpc"
 
   VPC_subnet           = "10.10.0.0/16"
-  vpc_name             = "Main VPC"
+  vpc_name             = "Production VPC"
   enable_dns_support   = true
   enable_dns_hostnames = true
 }
@@ -27,7 +27,7 @@ module "dmz_subnets" {
   vpc_id = module.vpc.vpc_id
   dmz_subnet_block                  = "10.10.32.0/19"
   num_of_dmz_subnets      = 3
-  dmz_subnets_subnet_size = 3 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
+  dmz_subnets_subnet_size = 3 #Specify the size of the subnet, i.e. VPC_subnet plus x bits (/19 + 3 = /22 subnets)
   num_of_AZs_to_use   = 3
   dmz_subnet_name         = "DMZ-Subnet"
 
@@ -40,7 +40,7 @@ module "private_subnets" {
   vpc_id = module.vpc.vpc_id
   private_subnet_block                  = "10.10.64.0/19"
   num_of_private_subnets      = 3
-  private_subnets_subnet_size = 3 #Specify the size of the subnet, i.e. network size plus x bits (/16 + 8 = /24)
+  private_subnets_subnet_size = 3 #Specify the size of the subnet, i.e. VPC_subnet plus x bits (/19 + 3 = /22 subnets)
   num_of_AZs_to_use   = 3
   private_subnet_name         = "Private-Subnet"
 
