@@ -110,12 +110,10 @@ resource "aws_nat_gateway" "nat_gateway" {
 resource "aws_route_table" "dmz_route_table" {
   vpc_id = module.vpc.vpc_id
 
-  
   route {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
-  
 
   tags = {
     Name = "DMZ Subnets Route Table"
@@ -141,12 +139,10 @@ resource "aws_route_table_association" "dmz_rt_to_dmz_subnet" {
 resource "aws_route_table" "private_route_table" {
   vpc_id = module.vpc.vpc_id
 
-  
   route {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
-  
 
   tags = {
     Name = "Private Subnets Route Table"
