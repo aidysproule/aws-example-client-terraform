@@ -1,7 +1,7 @@
-variable "VPC_subnet" {
+variable "vpc_subnet" {
   description = "Set the subnet for the VPC"
   type        = string
-  default     = "10.220.0.0/16"
+  default     = "10.10.0.0/16"
 }
 
 

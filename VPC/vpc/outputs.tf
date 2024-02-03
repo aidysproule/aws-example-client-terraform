@@ -2,6 +2,6 @@ output "vpc_id" {
   value = aws_vpc.main.id
 }
 
-output "VPC_subnet" {
-  value = var.VPC_subnet
+output "vpc_subnet" {
+  value = var.vpc_subnet
 }
