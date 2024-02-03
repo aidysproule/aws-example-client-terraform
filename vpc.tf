@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "../tf_modules/VPC/vpc"
+  source = "./tf_modules/VPC/vpc"
 
   VPC_subnet           = "10.10.0.0/16"
   vpc_name             = "Main VPC"
