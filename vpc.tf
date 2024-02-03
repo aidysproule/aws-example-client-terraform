@@ -96,5 +96,34 @@ resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.nat_gateway_eip.id
   subnet_id     = module.public_subnets.public_subnet_ids[0]
 }
-
 # ********** NAT Gateway **********
+
+# ********** DMZ Subnets Default Route **********
+resource "aws_route_table" "dmz_route_table" {
+  vpc_id = module.vpc.vpc_id
+
+  
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id
+  }
+  
+
+  tags = {
+    Name = "DMZ Subnets Route Table"
+  }
+}
+
+resource "aws_route_table_association" "dmz_rt_to_dmz_subnet" {
+  for_each       = toset(module.dmz_subnets.dmz_subnet_ids)
+  subnet_id      = each.value
+  route_table_id = aws_route_table.dmz_route_table.id
+
+  depends_on = [
+    module.public_subnets,
+    module.IGW,
+    aws_eip.nat_gateway_eip,
+    aws_nat_gateway.nat_gateway
+    ]
+}
+# ********** DMZ Subnets Default Route **********
