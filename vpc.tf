@@ -87,23 +87,14 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
 # ********** Public Subnets Default Route **********
 
 
-
-
-/*
-module "eip_nat_gateway" {
-  source = "./VPC/EIP"
+# ********** NAT Gateway **********
+resource "aws_eip" "nat_gateway_eip" {
+  domain = "vpc"
 }
 
-module "nat_gateway" {
-  source = "./VPC/NAT_GW"
-
-  eip_nat_gateway_id = module.eip_nat_gateway.eip_nat_gateway_id
-  public_subnet_ids = module.public_subnets.public_subnet_ids[0]
-
-  depends_on = [
-    module.public_subnets,
-    module.IGW,
-    module.eip_nat_gateway
-    ]
+resource "aws_nat_gateway" "nat_gateway" {
+  allocation_id = aws_eip.nat_gateway_eip.id
+  subnet_id     = module.public_subnets.public_subnet_ids[0]
 }
-*/
+
+# ********** NAT Gateway **********
