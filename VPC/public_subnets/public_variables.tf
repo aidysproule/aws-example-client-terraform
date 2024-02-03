@@ -3,7 +3,7 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "VPC_subnet" {
+variable "public_subnet_block" {
   description = "Specify the VPC subnet"
   type        = string
 }
