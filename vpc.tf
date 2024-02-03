@@ -105,6 +105,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 }
 # ********** NAT Gateway **********
 
+
 # ********** DMZ Subnets Default Route **********
 resource "aws_route_table" "dmz_route_table" {
   vpc_id = module.vpc.vpc_id
