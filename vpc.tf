@@ -93,7 +93,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 # **************************************************************************************************
 # **************************************************************************************************
 
-/*
+
 # ********** Public Subnets Default Route **********
 resource "aws_route_table" "public_route_table" {
   vpc_id = module.vpc.vpc_id
@@ -103,9 +103,6 @@ resource "aws_route_table" "public_route_table" {
     gateway_id = module.IGW.igw_id
   }
 
-  depends_on = [
-    module.IGW
-    ]
 
   tags = {
     Name = "Public Subnets Route Table"
@@ -117,10 +114,7 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
   subnet_id      = each.value
   route_table_id = aws_route_table.public_route_table.id
 
-  depends_on = [
-      aws_route_table.public_route_table,
-      module.public_subnets
-      ]
+
 }
 # ********** Public Subnets Default Route **********
 
@@ -134,9 +128,6 @@ resource "aws_route_table" "dmz_route_table" {
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
-  depends_on = [
-    aws_nat_gateway.nat_gateway,
-    ]
 
   tags = {
     Name = "DMZ Subnets Route Table"
@@ -148,10 +139,6 @@ resource "aws_route_table_association" "dmz_rt_to_dmz_subnet" {
   subnet_id      = each.value
   route_table_id = aws_route_table.dmz_route_table.id
 
-  depends_on = [
-    aws_route_table.dmz_route_table,
-    module.dmz_subnets
-    ]
 }
 # ********** DMZ Subnets Default Route **********
 
@@ -165,10 +152,6 @@ resource "aws_route_table" "private_route_table" {
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
-  depends_on = [
-    aws_nat_gateway.nat_gateway
-    ]
-
   tags = {
     Name = "Private Subnets Route Table"
   }
@@ -178,11 +161,5 @@ resource "aws_route_table_association" "private_rt_to_private_subnet" {
   for_each       = toset(module.private_subnets.private_subnet_ids)
   subnet_id      = each.value
   route_table_id = aws_route_table.private_route_table.id
-
-  depends_on = [
-    aws_route_table.private_route_table,
-    module.private_subnets
-    ]
 }
 # ********** Private Subnets Default Route **********
-*/
