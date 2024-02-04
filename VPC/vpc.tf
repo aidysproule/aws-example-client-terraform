@@ -60,7 +60,7 @@ module "private_subnets" {
 # **************************************************************************************************
 
 
-/*
+
 # ********** Internet Gateway **********
 module "IGW" {
   source = "./VPC/IGW"
@@ -164,4 +164,3 @@ resource "aws_route_table_association" "private_rt_to_private_subnet" {
   route_table_id = aws_route_table.private_route_table.id
 }
 # ********** Private Subnets Default Route **********
-*/
