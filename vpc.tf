@@ -89,6 +89,11 @@ resource "aws_nat_gateway" "nat_gateway" {
 # ********** NAT EIP & Gateway **********
 
 
+# **************************************************************************************************
+# **************************************************************************************************
+# **************************************************************************************************
+
+/*
 # ********** Public Subnets Default Route **********
 resource "aws_route_table" "public_route_table" {
   vpc_id = module.vpc.vpc_id
@@ -180,3 +185,4 @@ resource "aws_route_table_association" "private_rt_to_private_subnet" {
     ]
 }
 # ********** Private Subnets Default Route **********
+*/
