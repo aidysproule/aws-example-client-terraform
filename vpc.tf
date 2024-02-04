@@ -93,7 +93,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 # **************************************************************************************************
 # **************************************************************************************************
 
-
+/*
 # ********** Public Subnets Default Route **********
 resource "aws_route_table" "public_route_table" {
   vpc_id = module.vpc.vpc_id
@@ -163,3 +163,4 @@ resource "aws_route_table_association" "private_rt_to_private_subnet" {
   route_table_id = aws_route_table.private_route_table.id
 }
 # ********** Private Subnets Default Route **********
+*/
