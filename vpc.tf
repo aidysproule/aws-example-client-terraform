@@ -78,7 +78,8 @@ resource "aws_nat_gateway" "nat_gateway" {
   subnet_id     = module.public_subnets.public_subnet_ids[0]
   
   depends_on = [
-    aws_eip.nat_gateway_eip
+    aws_eip.nat_gateway_eip,
+    module.public_subnets
     ]
 
   tags = {
@@ -87,7 +88,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 }
 # ********** NAT EIP & Gateway **********
 
-/*
+
 # ********** Public Subnets Default Route **********
 resource "aws_route_table" "public_route_table" {
   vpc_id = module.vpc.vpc_id
@@ -96,6 +97,11 @@ resource "aws_route_table" "public_route_table" {
     cidr_block = "0.0.0.0/0"
     gateway_id = module.IGW.igw_id
   }
+
+  depends_on = [
+    module.public_subnets,
+    module.IGW
+    ]
 
   tags = {
     Name = "Public Subnets Route Table"
@@ -108,9 +114,8 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
   route_table_id = aws_route_table.public_route_table.id
 
   depends_on = [
-    module.public_subnets,
-    module.IGW
-    ]
+      aws_route_table.public_route_table
+      ]
 }
 # ********** Public Subnets Default Route **********
 
@@ -124,6 +129,11 @@ resource "aws_route_table" "dmz_route_table" {
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
+  depends_on = [
+    aws_nat_gateway.nat_gateway,
+    module.dmz_subnets
+    ]
+
   tags = {
     Name = "DMZ Subnets Route Table"
   }
@@ -135,8 +145,7 @@ resource "aws_route_table_association" "dmz_rt_to_dmz_subnet" {
   route_table_id = aws_route_table.dmz_route_table.id
 
   depends_on = [
-    aws_nat_gateway.nat_gateway,
-    module.dmz_subnets
+    aws_route_table.dmz_route_table
     ]
 }
 # ********** DMZ Subnets Default Route **********
@@ -151,6 +160,11 @@ resource "aws_route_table" "private_route_table" {
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
+  depends_on = [
+    aws_nat_gateway.nat_gateway,
+    module.private_subnets
+    ]
+
   tags = {
     Name = "Private Subnets Route Table"
   }
@@ -162,9 +176,7 @@ resource "aws_route_table_association" "private_rt_to_private_subnet" {
   route_table_id = aws_route_table.private_route_table.id
 
   depends_on = [
-    aws_nat_gateway.nat_gateway,
-    module.private_subnets
+    aws_route_table.private_route_table
     ]
 }
 # ********** Private Subnets Default Route **********
-*/
