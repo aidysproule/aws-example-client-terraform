@@ -4,8 +4,8 @@ resource "aws_instance" "server" {
   count         = 1
   key_name      = "temp-keypair"
 
-  subnet_id = ["subnet-007edf91713b014db"]
+  subnet_id = "subnet-007edf91713b014db"
 
-  vpc_security_group_ids = "sg-065c86502cf01d959"
+  vpc_security_group_ids = ["sg-065c86502cf01d959"]
 
 }
