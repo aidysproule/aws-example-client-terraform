@@ -108,7 +108,7 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
   route_table_id = aws_route_table.public_route_table.id
 
   depends_on = [
-    module.public_subnets,
+    module.public_subnets.public_subnet_ids,
     module.IGW,
     ]
 }
