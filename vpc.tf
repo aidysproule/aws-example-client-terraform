@@ -135,7 +135,7 @@ resource "aws_route_table_association" "dmz_rt_to_dmz_subnet" {
   route_table_id = aws_route_table.dmz_route_table.id
 
   depends_on = [
-    aws_nat_gateway.nat_gateway
+    aws_nat_gateway.nat_gateway,
     module.dmz_subnets
     ]
 }
