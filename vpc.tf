@@ -76,6 +76,10 @@ resource "aws_eip" "nat_gateway_eip" {
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.nat_gateway_eip.id
   subnet_id     = module.public_subnets.public_subnet_ids[0]
+  
+  depends_on = [
+    aws_eip.nat_gateway_eip
+    ]
 
   tags = {
     Name = "Production-NAT-Gateway"
@@ -102,6 +106,11 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
   for_each       = toset(module.public_subnets.public_subnet_ids)
   subnet_id      = each.value
   route_table_id = aws_route_table.public_route_table.id
+
+  depends_on = [
+    module.public_subnets,
+    module.IGW,
+    ]
 }
 # ********** Public Subnets Default Route **********
 
@@ -126,10 +135,8 @@ resource "aws_route_table_association" "dmz_rt_to_dmz_subnet" {
   route_table_id = aws_route_table.dmz_route_table.id
 
   depends_on = [
-    module.public_subnets,
-    module.IGW,
-    aws_eip.nat_gateway_eip,
     aws_nat_gateway.nat_gateway
+    module.dmz_subnets
     ]
 }
 # ********** DMZ Subnets Default Route **********
@@ -155,10 +162,8 @@ resource "aws_route_table_association" "private_rt_to_private_subnet" {
   route_table_id = aws_route_table.private_route_table.id
 
   depends_on = [
-    module.public_subnets,
-    module.IGW,
-    aws_eip.nat_gateway_eip,
-    aws_nat_gateway.nat_gateway
+    aws_nat_gateway.nat_gateway,
+    module.private_subnets
     ]
 }
 # ********** Private Subnets Default Route **********
