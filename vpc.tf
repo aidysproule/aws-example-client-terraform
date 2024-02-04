@@ -99,7 +99,6 @@ resource "aws_route_table" "public_route_table" {
   }
 
   depends_on = [
-    module.public_subnets,
     module.IGW
     ]
 
@@ -114,7 +113,8 @@ resource "aws_route_table_association" "public_rt_to_public_subnet" {
   route_table_id = aws_route_table.public_route_table.id
 
   depends_on = [
-      aws_route_table.public_route_table
+      aws_route_table.public_route_table,
+      module.public_subnets
       ]
 }
 # ********** Public Subnets Default Route **********
@@ -131,7 +131,6 @@ resource "aws_route_table" "dmz_route_table" {
 
   depends_on = [
     aws_nat_gateway.nat_gateway,
-    module.dmz_subnets
     ]
 
   tags = {
@@ -145,7 +144,8 @@ resource "aws_route_table_association" "dmz_rt_to_dmz_subnet" {
   route_table_id = aws_route_table.dmz_route_table.id
 
   depends_on = [
-    aws_route_table.dmz_route_table
+    aws_route_table.dmz_route_table,
+    module.dmz_subnets
     ]
 }
 # ********** DMZ Subnets Default Route **********
@@ -161,8 +161,7 @@ resource "aws_route_table" "private_route_table" {
   }
 
   depends_on = [
-    aws_nat_gateway.nat_gateway,
-    module.private_subnets
+    aws_nat_gateway.nat_gateway
     ]
 
   tags = {
@@ -176,7 +175,8 @@ resource "aws_route_table_association" "private_rt_to_private_subnet" {
   route_table_id = aws_route_table.private_route_table.id
 
   depends_on = [
-    aws_route_table.private_route_table
+    aws_route_table.private_route_table,
+    module.private_subnets
     ]
 }
 # ********** Private Subnets Default Route **********
